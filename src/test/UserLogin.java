@@ -126,10 +126,48 @@ public class UserLogin extends JFrame {
 			}
 			
 		});
-		Image imgQuestion = new ImageIcon(this.getClass().getResource("/question.png")).getImage();
-		lblQuestion.setIcon(new ImageIcon(imgQuestion));
-		lblQuestion.setBounds(172, 141, 117, 72);
+		Image imgOpenQuestion = new ImageIcon(this.getClass().getResource("/openquestion.png")).getImage();
+		
+		lblQuestion.setIcon(new ImageIcon(imgOpenQuestion));
+		lblQuestion.setBounds(143, 141, 86, 72);
 		getContentPane().add(lblQuestion);
+		
+		JLabel lblClosedQuestion = new JLabel("");
+		lblClosedQuestion.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Ask a Question");
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		Image imgClosedQuestion = new ImageIcon(this.getClass().getResource("/closedquestion.png")).getImage();
+		lblClosedQuestion.setIcon(new ImageIcon(imgClosedQuestion));
+		lblClosedQuestion.setBounds(241, 141, 91, 72);
+		getContentPane().add(lblClosedQuestion);
 		
 		JLabel lblReport = new JLabel("");
 		lblReport.addMouseListener(new MouseListener() {
@@ -214,7 +252,7 @@ public class UserLogin extends JFrame {
 		JLabel lblSubmitQuestions = new JLabel("Submit Questions");
 		lblSubmitQuestions.setFont(new Font("Lantinghei TC", Font.PLAIN, 13));
 		lblSubmitQuestions.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSubmitQuestions.setBounds(172, 125, 117, 16);
+		lblSubmitQuestions.setBounds(172, 113, 117, 16);
 		getContentPane().add(lblSubmitQuestions);
 		
 		JLabel lblUserSettings = new JLabel("Settings");
