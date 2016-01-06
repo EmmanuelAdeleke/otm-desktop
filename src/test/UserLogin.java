@@ -99,7 +99,12 @@ public class UserLogin extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Ask a Question");
+				System.out.println("Open Question");
+				OpenQuestion openQuestion = new OpenQuestion();
+				openQuestion.setVisible(true);
+				openQuestion.setResizable(false);
+				
+				setVisible(false);
 			}
 
 			@Override
