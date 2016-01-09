@@ -17,21 +17,48 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import org.bson.BSON;
+import org.bson.BSONObject;
+import org.bson.BsonDocument;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
+import com.mongodb.WriteResult;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.rmi.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class OpenQuestion extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtTopic;
+	private JTextField txtQuestion;
+
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					OpenQuestion frame = new OpenQuestion();
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,7 +76,7 @@ public class OpenQuestion extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel lblQuestion2 = new JLabel("");
 		lblQuestion2.addMouseListener(new MouseListener() {
 
@@ -57,7 +84,7 @@ public class OpenQuestion extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
 				setVisible(false);
-				
+
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);
 			}
@@ -65,61 +92,90 @@ public class OpenQuestion extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				
+
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 		});
 		Image imgOpenQuestion = new ImageIcon(this.getClass().getResource("/back.png")).getImage();
-		
+
 		lblQuestion2.setIcon(new ImageIcon(imgOpenQuestion));
 		lblQuestion2.setBounds(16, -11, 86, 72);
 		getContentPane().add(lblQuestion2);
-		
+
 		JLabel lblOpenQuestion = new JLabel("Open Question");
 		lblOpenQuestion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOpenQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 25));
 		lblOpenQuestion.setBounds(6, 6, 438, 36);
 		contentPane.add(lblOpenQuestion);
-		
+
 		JLabel lblTopic = new JLabel("Topic");
 		lblTopic.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
 		lblTopic.setBounds(16, 44, 43, 23);
 		contentPane.add(lblTopic);
-		
-		textField = new JTextField();
-		textField.setBounds(16, 69, 403, 28);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
+
+		txtTopic = new JTextField();
+		txtTopic.setBounds(16, 69, 403, 28);
+		contentPane.add(txtTopic);
+		txtTopic.setColumns(10);
+
 		JLabel lblQuestion = new JLabel("Question");
 		lblQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
 		lblQuestion.setBounds(16, 109, 79, 23);
 		contentPane.add(lblQuestion);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(16, 140, 403, 28);
-		contentPane.add(textField_1);
-		
+
+		txtQuestion = new JTextField();
+		txtQuestion.setColumns(10);
+		txtQuestion.setBounds(16, 140, 403, 28);
+		contentPane.add(txtQuestion);
+
 		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Mongo m = new Mongo("emmanueladeleke.ddns.net", 27017);
+				DB db = m.getDB("otm");
+				
+				
+				DBCollection collection = db.getCollection("lecturer");
+			
+				DBObject find = new BasicDBObject("_id", 3);				
+				
+				//DBObject push = new BasicDBObject("$push", new BasicDBObject(
+				                        //"scores", new BasicDBObject()));
+				DBObject listItem = new BasicDBObject("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
+				DBObject updateQuery = new BasicDBObject("$push", listItem);
+				collection.update(find, updateQuery);
+				
+				ObjectId o = new ObjectId();
+				System.out.println(o.toString());
+				
+//				MongoClient client = new MongoClient("emmanueladeleke.ddns.net");
+//				MongoDatabase db = client.getDatabase("lecturer");
+//				MongoCollection<Document> users = db.getCollection("otm");
+//				
+//				users.updateOne(BsonDocument.parse("{\"_id\" : 3}"), BsonDocument.parse("{\"collection\" : \"20\""));
+			}
+		});
 		btnSubmit.setBounds(166, 180, 117, 29);
 		contentPane.add(btnSubmit);
-	}
+		
+	}	
+	
 }
