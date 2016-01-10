@@ -46,13 +46,15 @@ public class OpenQuestion extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtTopic;
 	private JTextField txtQuestion;
-
-
+	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
+	private static final String DATABASE = "otm";
+	private static final String COLLECTION = "lecturer";
+	private static Database db;
+	private static User user;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) throws UnknownHostException {
-		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -70,6 +72,8 @@ public class OpenQuestion extends JFrame {
 	 * Create the frame.
 	 */
 	public OpenQuestion() {
+		user = new User();
+		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
 		contentPane = new JPanel();
@@ -148,29 +152,10 @@ public class OpenQuestion extends JFrame {
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				Mongo m = new Mongo("emmanueladeleke.ddns.net", 27017);
-				DB db = m.getDB("otm");
-				
-				
-				DBCollection collection = db.getCollection("lecturer");
-			
-				DBObject find = new BasicDBObject("_id", 3);				
-				
-				//DBObject push = new BasicDBObject("$push", new BasicDBObject(
-				                        //"scores", new BasicDBObject()));
-				DBObject listItem = new BasicDBObject("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
-				DBObject updateQuery = new BasicDBObject("$push", listItem);
-				collection.update(find, updateQuery);
-				
-				ObjectId o = new ObjectId();
-				System.out.println(o.toString());
-				
-//				MongoClient client = new MongoClient("emmanueladeleke.ddns.net");
-//				MongoDatabase db = client.getDatabase("lecturer");
-//				MongoCollection<Document> users = db.getCollection("otm");
-//				
-//				users.updateOne(BsonDocument.parse("{\"_id\" : 3}"), BsonDocument.parse("{\"collection\" : \"20\""));
+				Document find = new Document("_id", user.getId());
+				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
+				Document updateQuery = new Document("$push", listItem);
+				db.getCollection().updateOne(find, updateQuery);
 			}
 		});
 		btnSubmit.setBounds(166, 180, 117, 29);

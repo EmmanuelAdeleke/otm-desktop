@@ -13,6 +13,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
+	private int id;
 	
 	public User() {
 		loadData();
@@ -34,6 +35,7 @@ public class User {
 		setLastName(document.getString("last_name"));
 		setUsername(document.getString("username"));
 		setEmail(document.getString("email_address"));
+		setId(document.getDouble("_id").intValue());
 	}
 
 	public void setUsername(String username) {
@@ -66,6 +68,14 @@ public class User {
 
 	public String getEmail() {
 		return email;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

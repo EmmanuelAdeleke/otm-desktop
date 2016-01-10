@@ -31,28 +31,17 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JPasswordField passwordField;
+	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
+	private static final String DATABASE = "otm";
+	private static final String COLLECTION = "lecturer";
+	private static Database db;
+	private static AuthUser user;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-//		try {
-//            // Set System L&F
-//        UIManager.setLookAndFeel(
-//            UIManager.getSystemLookAndFeelClassName());
-//    } 
-//    catch (UnsupportedLookAndFeelException e) {
-//       // handle exception
-//    }
-//    catch (ClassNotFoundException e) {
-//       // handle exception
-//    }
-//    catch (InstantiationException e) {
-//       // handle exception
-//    }
-//    catch (IllegalAccessException e) {
-//       // handle exception
-//    }
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -72,6 +61,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -107,9 +97,8 @@ public class Login extends JFrame {
 		JButton btnAuthenticate = new JButton("Authenticate");
 		btnAuthenticate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Database db = new Database("emmanueladeleke.ddns.net", "otm", "lecturer");
-				AuthUser user = new AuthUser(txtUsername.getText(), passwordField.getText());
-				System.out.println("Connected: " + user.authUser(db));
+				user = new AuthUser(txtUsername.getText(), passwordField.getText());
+				//System.out.println("Connected: " + user.authUser(db));
 				
 				if(user.authUser(db)) {
 					user.createFile();
