@@ -7,7 +7,6 @@ import test.AuthUser;
 import test.Database;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;

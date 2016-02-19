@@ -41,16 +41,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class OpenQuestion extends JFrame {
+public class ClosedQuestion extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtTopic;
-	private JTextField txtQuestion;
 	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
-	private static final String DATABASE = "otm";
-	private static final String COLLECTION = "lecturer";
+	private static final String DATABASE = "OtMC";
+	private static final String COLLECTION = "closedquestion";
+	private static final String COLLECTION2 = "lecturer";
 	private static Database db;
+	private static Database db2;
 	private static User user;
+	static ObjectId objectId;
 	/**
 	 * Launch the application.
 	 */
@@ -58,7 +60,7 @@ public class OpenQuestion extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					OpenQuestion frame = new OpenQuestion();
+					ClosedQuestion frame = new ClosedQuestion();
 					frame.setVisible(true);
 					frame.setResizable(false);
 				} catch (Exception e) {
@@ -71,11 +73,13 @@ public class OpenQuestion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public OpenQuestion() {
+	public ClosedQuestion() {
+		objectId = new ObjectId();
 		user = new User();
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
+		db2 = new Database(SERVER_ADDRESS, DATABASE, COLLECTION2);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds(100, 100, 450, 175);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -123,11 +127,11 @@ public class OpenQuestion extends JFrame {
 		lblQuestion2.setBounds(16, -11, 86, 72);
 		getContentPane().add(lblQuestion2);
 
-		JLabel lblOpenQuestion = new JLabel("Open Question");
-		lblOpenQuestion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOpenQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 25));
-		lblOpenQuestion.setBounds(6, 6, 438, 36);
-		contentPane.add(lblOpenQuestion);
+		JLabel lblClosedQuestion = new JLabel("Multiple Choice");
+		lblClosedQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+		lblClosedQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 25));
+		lblClosedQuestion.setBounds(6, 6, 438, 36);
+		contentPane.add(lblClosedQuestion);
 
 		JLabel lblTopic = new JLabel("Topic");
 		lblTopic.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
@@ -139,29 +143,32 @@ public class OpenQuestion extends JFrame {
 		contentPane.add(txtTopic);
 		txtTopic.setColumns(10);
 
-		JLabel lblQuestion = new JLabel("Question");
-		lblQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
-		lblQuestion.setBounds(16, 109, 79, 23);
-		contentPane.add(lblQuestion);
-
-		txtQuestion = new JTextField();
-		txtQuestion.setColumns(10);
-		txtQuestion.setBounds(16, 140, 403, 28);
-		contentPane.add(txtQuestion);
-
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Document find = new Document("_id", user.getId());
-				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
-				Document updateQuery = new Document("$push", listItem);
+				//Document find = new Document("_id", user.getId());
+//				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
+//				Document listItem = new Document("_id", objectId);
+//				Document updateQuery = new Document("$push", listItem);
 //				db.getCollection().updateOne(find, updateQuery);
 				
+				db.getCollection().insertOne(new Document("_id", objectId).append("topic", txtTopic.getText())
+						.append("lecturerId", user.getId()));
+				
+				DBObject listItem = new BasicDBObject("questionList", objectId);
+				Document updateQuery = new Document("$push", listItem);
+				
+				Document find = new Document("_id", user.getId());
+//				db2.getCollection().insertOne(new Document("questionList", objectId));
+				
+				db2.getCollection().updateOne(find, updateQuery);
+				
 				txtTopic.setText("");
-				txtQuestion.setText("");
+				SetClosedQuestion frame = new SetClosedQuestion();
+				frame.setVisible(true);
 			}
 		});
-		btnSubmit.setBounds(167, 368, 117, 29);
+		btnSubmit.setBounds(161, 109, 117, 29);
 		contentPane.add(btnSubmit);
 		
 	}	

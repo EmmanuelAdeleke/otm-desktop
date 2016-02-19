@@ -144,6 +144,9 @@ public class UserLogin extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Ask a Question");
+				ClosedQuestion frame = new ClosedQuestion();
+				frame.setVisible(true);
+				setVisible(false);
 			}
 
 			@Override

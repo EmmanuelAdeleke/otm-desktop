@@ -32,7 +32,7 @@ public class Login extends JFrame {
 	private JTextField txtUsername;
 	private JPasswordField passwordField;
 	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
-	private static final String DATABASE = "otm";
+	private static final String DATABASE = "OtMC";
 	private static final String COLLECTION = "lecturer";
 	private static Database db;
 	private static AuthUser user;
@@ -49,7 +49,7 @@ public class Login extends JFrame {
 					frame.setVisible(true);
 					frame.setResizable(false);
 					
-					frame.getContentPane().setBackground(new Color(63, 81, 181));
+					frame.getContentPane().setBackground(new Color(21, 51, 99));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
