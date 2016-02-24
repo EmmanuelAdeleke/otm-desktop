@@ -47,7 +47,7 @@ public class OpenQuestion extends JFrame {
 	private JTextField txtTopic;
 	private JTextField txtQuestion;
 	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
-	private static final String DATABASE = "otm";
+	private static final String DATABASE = "OtMC";
 	private static final String COLLECTION = "lecturer";
 	private static Database db;
 	private static User user;
@@ -155,7 +155,7 @@ public class OpenQuestion extends JFrame {
 				Document find = new Document("_id", user.getId());
 				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
 				Document updateQuery = new Document("$push", listItem);
-//				db.getCollection().updateOne(find, updateQuery);
+				db.getCollection().updateOne(find, updateQuery);
 				
 				txtTopic.setText("");
 				txtQuestion.setText("");

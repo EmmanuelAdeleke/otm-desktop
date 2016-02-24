@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -57,6 +58,7 @@ public class SetClosedQuestion extends JFrame {
 	private JTextField txtB;
 	private JTextField txtC;
 	private JTextField txtD;
+	private JTextField txtCorrectAns;
 	/**
 	 * Launch the application.
 	 */
@@ -66,7 +68,6 @@ public class SetClosedQuestion extends JFrame {
 				try {
 					SetClosedQuestion frame = new SetClosedQuestion();
 					frame.setVisible(true);
-					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -81,7 +82,7 @@ public class SetClosedQuestion extends JFrame {
 		user = new User();
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 450, 460);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -149,25 +150,51 @@ public class SetClosedQuestion extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Document find = new Document("_id", user.getId());
-//				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
-//				Document listItem = new Document("_id", objectId);
-//				Document updateQuery = new Document("$push", listItem);
-//				db.getCollection().updateOne(find, updateQuery);
-//				db.getCollection().insertOne(new Document("_id", objectId).append("topic", txtTopic.getText()));
-				
+				//				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
+				//				Document listItem = new Document("_id", objectId);
+				//				Document updateQuery = new Document("$push", listItem);
+				//				db.getCollection().updateOne(find, updateQuery);
+				//				db.getCollection().insertOne(new Document("_id", objectId).append("topic", txtTopic.getText()));
+
+				String correctAns = "";
+
+				if (txtCorrectAns.getText().equals(" ".trim())) {
+					JOptionPane.showMessageDialog(getContentPane(), "Do not leave any of the fields blank");
+				}
+				else {
+					switch(txtCorrectAns.getText().trim()) {
+					case "A":
+						correctAns = txtA.getText();
+						break;
+					case "B":
+						correctAns = txtB.getText();
+						break;
+					case "C":
+						correctAns = txtC.getText();
+						break;
+					case "D":
+						correctAns = txtD.getText();
+						break;
+					}
+				}
+
+				System.out.println(correctAns);
+
+
 				List<String> ansList = new ArrayList<String>();
 				ansList.add(txtA.getText());
 				ansList.add(txtB.getText());
 				ansList.add(txtC.getText());
 				ansList.add(txtD.getText());
-				
+
 				Document find = new Document("_id", ClosedQuestion.objectId);
 				Document listItem = new Document("questionList", new BasicDBObject("question", txtQuestion.getText())
-					.append("ansOption", ansList)
-					.append("A", 0)
-					.append("B", 0)
-					.append("C", 0)
-					.append("D", 0));
+				.append("ansOption", ansList)
+				.append("correctAnswer", correctAns)
+				.append("A", 0)
+				.append("B", 0)
+				.append("C", 0)
+				.append("D", 0));
 				Document updateQuery = new Document("$push", listItem);
 				db.getCollection().updateOne(find, updateQuery);
 				txtQuestion.setText("");
@@ -175,53 +202,67 @@ public class SetClosedQuestion extends JFrame {
 				txtB.setText("");
 				txtC.setText("");
 				txtD.setText("");
+				txtCorrectAns.setText("");
 			}
 		});
-		btnSubmit.setBounds(158, 329, 117, 29);
+		btnSubmit.setBounds(164, 385, 117, 29);
 		contentPane.add(btnSubmit);
-		
+
 		txtA = new JTextField();
 		txtA.setColumns(10);
 		txtA.setBounds(53, 122, 336, 28);
 		contentPane.add(txtA);
-		
+
 		JLabel lblA = new JLabel("A");
 		lblA.setHorizontalAlignment(SwingConstants.CENTER);
 		lblA.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
 		lblA.setBounds(179, 99, 78, 23);
 		contentPane.add(lblA);
-		
+
 		JLabel lblB = new JLabel("B");
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblB.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
 		lblB.setBounds(179, 153, 78, 23);
 		contentPane.add(lblB);
-		
+
 		txtB = new JTextField();
 		txtB.setColumns(10);
 		txtB.setBounds(53, 176, 336, 28);
 		contentPane.add(txtB);
-		
+
 		JLabel lblC = new JLabel("C");
 		lblC.setHorizontalAlignment(SwingConstants.CENTER);
 		lblC.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
 		lblC.setBounds(179, 209, 78, 23);
 		contentPane.add(lblC);
-		
+
 		txtC = new JTextField();
 		txtC.setColumns(10);
 		txtC.setBounds(53, 232, 336, 28);
 		contentPane.add(txtC);
-		
+
 		JLabel lblD = new JLabel("D");
 		lblD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblD.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
 		lblD.setBounds(179, 266, 78, 23);
 		contentPane.add(lblD);
-		
+
 		txtD = new JTextField();
 		txtD.setColumns(10);
 		txtD.setBounds(53, 289, 336, 28);
 		contentPane.add(txtD);
+
+		txtCorrectAns = new JTextField();
+		txtCorrectAns.setColumns(10);
+		txtCorrectAns.setBounds(63, 345, 336, 28);
+		contentPane.add(txtCorrectAns);
+
+		JLabel lblCorrectAnswer = new JLabel("Correct Answer (A, B, C or D)");
+		lblCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCorrectAnswer.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
+		lblCorrectAnswer.setBounds(16, 324, 438, 23);
+		contentPane.add(lblCorrectAnswer);
+
+		this.setResizable(false);
 	}	
 }

@@ -39,20 +39,24 @@ import java.awt.event.ActionEvent;
 import java.rmi.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class ClosedQuestion extends JFrame {
+public class Result extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtTopic;
+	private JTextField txtQuestion;
 	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
 	private static final String DATABASE = "OtMC";
 	private static final String COLLECTION = "closedquestion";
-	private static final String COLLECTION2 = "lecturer";
 	private static Database db;
-	private static Database db2;
 	private static User user;
-	static ObjectId objectId;
+	public static ObjectId objectId = new ObjectId();
+	private JTextField txtA;
+	private JTextField txtB;
+	private JTextField txtC;
+	private JTextField txtD;
 	/**
 	 * Launch the application.
 	 */
@@ -60,7 +64,7 @@ public class ClosedQuestion extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ClosedQuestion frame = new ClosedQuestion();
+					Result frame = new Result();
 					frame.setVisible(true);
 					frame.setResizable(false);
 				} catch (Exception e) {
@@ -73,13 +77,11 @@ public class ClosedQuestion extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ClosedQuestion() {
-		objectId = new ObjectId();
+	public Result() {
 		user = new User();
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
-		db2 = new Database(SERVER_ADDRESS, DATABASE, COLLECTION2);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 175);
+		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,7 +92,7 @@ public class ClosedQuestion extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Open Question");
+				System.out.println("BACK");
 				setVisible(false);
 
 				UserLogin userLogin = new UserLogin();
@@ -126,53 +128,93 @@ public class ClosedQuestion extends JFrame {
 		lblQuestion2.setIcon(new ImageIcon(imgOpenQuestion));
 		lblQuestion2.setBounds(16, -11, 86, 72);
 		getContentPane().add(lblQuestion2);
+		
+		JLabel lblCheckResults = new JLabel("Check Results");
+		lblCheckResults.setFont(new Font("Lantinghei TC", Font.PLAIN, 21));
+		lblCheckResults.setBounds(151, 18, 158, 30);
+		contentPane.add(lblCheckResults);
+		
+		JLabel lblQuestion = new JLabel("");
+		lblQuestion.addMouseListener(new MouseListener() {
 
-		JLabel lblClosedQuestion = new JLabel("Multiple Choice");
-		lblClosedQuestion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClosedQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 25));
-		lblClosedQuestion.setBounds(6, 6, 438, 36);
-		contentPane.add(lblClosedQuestion);
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Open Question");
+				OpenQuestion openQuestion = new OpenQuestion();
+				openQuestion.setVisible(true);
+				openQuestion.setResizable(false);
+				
+				setVisible(false);
+			}
 
-		JLabel lblTopic = new JLabel("Topic");
-		lblTopic.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
-		lblTopic.setBounds(16, 44, 43, 23);
-		contentPane.add(lblTopic);
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 
-		txtTopic = new JTextField();
-		txtTopic.setBounds(16, 69, 403, 28);
-		contentPane.add(txtTopic);
-		txtTopic.setColumns(10);
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
 
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Document find = new Document("_id", user.getId());
-//				Document listItem = new Document("questions", new BasicDBObject("_id", new ObjectId()).append("topic", txtTopic.getText()).append("question", txtQuestion.getText()));
-//				Document listItem = new Document("_id", objectId);
-//				Document updateQuery = new Document("$push", listItem);
-//				db.getCollection().updateOne(find, updateQuery);
+			@Override
+			public void mouseEntered(MouseEvent e) {
 				
-				db.getCollection().insertOne(new Document("_id", objectId).append("topic", txtTopic.getText())
-						.append("lecturerId", user.getId()));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
 				
-				DBObject listItem = new BasicDBObject("questionList", objectId);
-				Document updateQuery = new Document("$push", listItem);
-				
-				Document find = new Document("_id", user.getId());
-//				db2.getCollection().insertOne(new Document("questionList", objectId));
-				
-				db2.getCollection().updateOne(find, updateQuery);
-				
-				txtTopic.setText("");
-				SetClosedQuestion frame = new SetClosedQuestion();
+			}
+			
+		});
+		Image imgOpenQuestion2 = new ImageIcon(this.getClass().getResource("/openquestion.png")).getImage();
+		
+		lblQuestion.setIcon(new ImageIcon(imgOpenQuestion2));
+		lblQuestion.setBounds(143, 141, 86, 72);
+		getContentPane().add(lblQuestion2);
+		
+		JLabel lblClosedQuestion = new JLabel("");
+		lblClosedQuestion.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Ask a Question");
+				ClosedQuestion frame = new ClosedQuestion();
 				frame.setVisible(true);
 			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
 		});
-		btnSubmit.setBounds(161, 109, 117, 29);
-		contentPane.add(btnSubmit);
-		
-		this.setResizable(false);
-		
+		Image imgClosedQuestion = new ImageIcon(this.getClass().getResource("/closedquestion.png")).getImage();
+		lblClosedQuestion.setIcon(new ImageIcon(imgClosedQuestion));
+		lblClosedQuestion.setBounds(241, 141, 91, 72);
+		getContentPane().add(lblClosedQuestion);
+
 	}	
-	
 }

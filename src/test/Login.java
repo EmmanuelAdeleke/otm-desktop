@@ -3,6 +3,7 @@ package test;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -47,7 +48,6 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
-					frame.setResizable(false);
 					
 					frame.getContentPane().setBackground(new Color(21, 51, 99));
 				} catch (Exception e) {
@@ -125,6 +125,9 @@ public class Login extends JFrame {
 		label.setIcon(new ImageIcon(img));
 		label.setBounds(168, 33, 117, 45);
 		contentPane.add(label);		
+
+		this.setResizable(false);
+		
 	}
 
 	public void exitLogin(){

@@ -146,7 +146,6 @@ public class UserLogin extends JFrame {
 				System.out.println("Ask a Question");
 				ClosedQuestion frame = new ClosedQuestion();
 				frame.setVisible(true);
-				setVisible(false);
 			}
 
 			@Override
@@ -184,7 +183,7 @@ public class UserLogin extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Generate Report");
+				System.out.println("Check Results");
 			}
 
 			@Override
@@ -252,7 +251,7 @@ public class UserLogin extends JFrame {
 		lblSettings.setBounds(172, 349, 117, 72);
 		getContentPane().add(lblSettings);
 		
-		JLabel lblGenerateReport = new JLabel("Generate Report");
+		JLabel lblGenerateReport = new JLabel("Check Results");
 		lblGenerateReport.setFont(new Font("Lantinghei TC", Font.PLAIN, 13));
 		lblGenerateReport.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGenerateReport.setBounds(172, 225, 117, 16);
@@ -269,6 +268,7 @@ public class UserLogin extends JFrame {
 		lblUserSettings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserSettings.setBounds(172, 328, 117, 16);
 		getContentPane().add(lblUserSettings);
+		this.setResizable(false);
 		
 	}
 	
