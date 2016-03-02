@@ -2,9 +2,11 @@ package test;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Frame;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,6 +29,9 @@ import java.util.logging.Logger;
 
 import javax.swing.SwingConstants;
 
+import entities.AuthUser;
+import entities.Database;
+
 public class Login extends JFrame {
 
 	private JPanel contentPane;
@@ -37,7 +42,10 @@ public class Login extends JFrame {
 	private static final String COLLECTION = "lecturer";
 	private static Database db;
 	private static AuthUser user;
-
+	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static double width = screenSize.getWidth();
+	public static double height = screenSize.getHeight();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,9 +69,10 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds((int)(width / 2) - (450 / 2), (int)(height / 2) - 300, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

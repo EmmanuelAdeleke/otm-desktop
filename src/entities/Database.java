@@ -1,4 +1,4 @@
-package test;
+package entities;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;

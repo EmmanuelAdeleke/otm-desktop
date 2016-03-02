@@ -3,9 +3,6 @@ import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
 import org.bson.Document;
 
-import test.AuthUser;
-import test.Database;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
@@ -13,6 +10,9 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+
+import entities.AuthUser;
+import entities.Database;
 
 public class Main2 {
 

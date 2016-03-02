@@ -36,6 +36,7 @@ import com.mongodb.util.JSON;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.rmi.UnknownHostException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -47,12 +48,8 @@ public class Result extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtQuestion;
-	private static final String SERVER_ADDRESS = "emmanueladeleke.ddns.net";
-	private static final String DATABASE = "OtMC";
-	private static final String COLLECTION = "closedquestion";
-	private static Database db;
-	private static User user;
-	public static ObjectId objectId = new ObjectId();
+	
+	
 	private JTextField txtA;
 	private JTextField txtB;
 	private JTextField txtC;
@@ -66,7 +63,7 @@ public class Result extends JFrame {
 				try {
 					Result frame = new Result();
 					frame.setVisible(true);
-					frame.setResizable(false);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,11 +74,9 @@ public class Result extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Result() {
-		user = new User();
-		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
+	public Result() throws Exception {	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - 300, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,7 +87,7 @@ public class Result extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("BACK");
+				System.out.println("Open Question");
 				setVisible(false);
 
 				UserLogin userLogin = new UserLogin();
@@ -128,23 +123,24 @@ public class Result extends JFrame {
 		lblQuestion2.setIcon(new ImageIcon(imgOpenQuestion));
 		lblQuestion2.setBounds(16, -11, 86, 72);
 		getContentPane().add(lblQuestion2);
-		
-		JLabel lblCheckResults = new JLabel("Check Results");
-		lblCheckResults.setFont(new Font("Lantinghei TC", Font.PLAIN, 21));
-		lblCheckResults.setBounds(151, 18, 158, 30);
-		contentPane.add(lblCheckResults);
-		
+
 		JLabel lblQuestion = new JLabel("");
 		lblQuestion.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Open Question");
-				OpenQuestion openQuestion = new OpenQuestion();
-				openQuestion.setVisible(true);
-				openQuestion.setResizable(false);
+				System.out.println("Check Open Questions");
 				
-				setVisible(false);
+				
+				OpenResult openResult = null;
+				try {
+					openResult = new OpenResult();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				openResult.setVisible(true);
+				
 			}
 
 			@Override
@@ -172,19 +168,26 @@ public class Result extends JFrame {
 			
 		});
 		Image imgOpenQuestion2 = new ImageIcon(this.getClass().getResource("/openquestion.png")).getImage();
-		
 		lblQuestion.setIcon(new ImageIcon(imgOpenQuestion2));
-		lblQuestion.setBounds(143, 141, 86, 72);
-		getContentPane().add(lblQuestion2);
+		lblQuestion.setBounds(291, 185, 86, 72);
+		getContentPane().add(lblQuestion);
 		
 		JLabel lblClosedQuestion = new JLabel("");
 		lblClosedQuestion.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Ask a Question");
-				ClosedQuestion frame = new ClosedQuestion();
+				System.out.println("Check multiple");
+//				ClosedQuestion frame = new ClosedQuestion();
+				MultipleResult frame = null;
+				try {
+					frame = new MultipleResult();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				frame.setVisible(true);
+				setVisible(false);
 			}
 
 			@Override
@@ -213,8 +216,25 @@ public class Result extends JFrame {
 		});
 		Image imgClosedQuestion = new ImageIcon(this.getClass().getResource("/closedquestion.png")).getImage();
 		lblClosedQuestion.setIcon(new ImageIcon(imgClosedQuestion));
-		lblClosedQuestion.setBounds(241, 141, 91, 72);
+		lblClosedQuestion.setBounds(85, 185, 91, 72);
 		getContentPane().add(lblClosedQuestion);
+		
+		JLabel lblCheckMultipleQuestion = new JLabel("Multiple Question");
+		lblCheckMultipleQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
+		lblCheckMultipleQuestion.setBounds(51, 156, 141, 24);
+		contentPane.add(lblCheckMultipleQuestion);
+		
+		JLabel lblOpenQuestion = new JLabel("Open Question");
+		lblOpenQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 16));
+		lblOpenQuestion.setBounds(274, 157, 125, 23);
+		contentPane.add(lblOpenQuestion);
+		
+		JLabel lblCheckResults = new JLabel("Check Results");
+		lblCheckResults.setFont(new Font("Lantinghei TC", Font.PLAIN, 26));
+		lblCheckResults.setBounds(134, 62, 193, 37);
+		contentPane.add(lblCheckResults);
 
+		this.setResizable(false);
+		
 	}	
 }

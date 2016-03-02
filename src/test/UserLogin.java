@@ -23,6 +23,8 @@ import java.rmi.UnknownHostException;
 
 import javax.swing.SwingConstants;
 
+import entities.User;
+
 public class UserLogin extends JFrame {
 
 	public User user;
@@ -66,7 +68,7 @@ public class UserLogin extends JFrame {
 	public UserLogin() {
 		user = new User();
 		
-		setBounds(100, 100, 450, 510);
+		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - 300, 450, 510);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 
@@ -103,7 +105,6 @@ public class UserLogin extends JFrame {
 				System.out.println("Open Question");
 				OpenQuestion openQuestion = new OpenQuestion();
 				openQuestion.setVisible(true);
-				openQuestion.setResizable(false);
 				
 				setVisible(false);
 			}
@@ -146,6 +147,7 @@ public class UserLogin extends JFrame {
 				System.out.println("Ask a Question");
 				ClosedQuestion frame = new ClosedQuestion();
 				frame.setVisible(true);
+				setVisible(false);
 			}
 
 			@Override
@@ -182,7 +184,15 @@ public class UserLogin extends JFrame {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
+				Result frame = null;
+				try {
+					frame = new Result();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				frame.setVisible(true);
+				setVisible(false);
 				System.out.println("Check Results");
 			}
 

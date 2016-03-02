@@ -35,6 +35,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 
+import entities.Database;
+import entities.User;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.rmi.UnknownHostException;
@@ -82,7 +85,7 @@ public class SetClosedQuestion extends JFrame {
 		user = new User();
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 460);
+		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - 300, 450, 460);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

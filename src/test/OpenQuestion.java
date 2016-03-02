@@ -34,6 +34,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 
+import entities.Database;
+import entities.User;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.rmi.UnknownHostException;
@@ -75,7 +78,7 @@ public class OpenQuestion extends JFrame {
 		user = new User();
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 450);
+		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - (450 / 2), 450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -164,6 +167,7 @@ public class OpenQuestion extends JFrame {
 		btnSubmit.setBounds(167, 368, 117, 29);
 		contentPane.add(btnSubmit);
 		
+		this.setResizable(false);
 	}	
 	
 }
