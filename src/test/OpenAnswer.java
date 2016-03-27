@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Color;
 
 public class OpenAnswer extends JFrame {
 
@@ -49,14 +50,16 @@ public class OpenAnswer extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		contentPane.setBackground(new Color(21, 51, 99));
 
 		answerLimit = OpenResult.openQuestionList.get(OpenResult.position).answer.length;
 
 		lblAnswer = new JLabel("New label");
-		lblAnswer.setText("<html> <body style=\"text-align: center\">" + OpenResult.openQuestionList.get(OpenResult.position).answer[0] + "</body> </html>");
-		lblAnswer.setFont(new Font("Lantinghei TC", Font.PLAIN, 20));
+		lblAnswer.setForeground(Color.WHITE);
+		lblAnswer.setText("<html> <body style=\"text-align: center\">" + OpenResult.openQuestionList.get(OpenResult.position).answer[answerPosition] + "</body> </html>");
+		lblAnswer.setFont(new Font("Lantinghei TC", Font.PLAIN, 27));
 		lblAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-		lblAnswer.setBounds(135, 136, 852, 374);
+		lblAnswer.setBounds(123, 136, 852, 374);
 		contentPane.add(lblAnswer);
 
 		JLabel lblQuestion2 = new JLabel("");
@@ -77,7 +80,7 @@ public class OpenAnswer extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					setVisible(false);
+					OpenAnswer.this.dispose();
 				}
 			}
 
@@ -105,9 +108,9 @@ public class OpenAnswer extends JFrame {
 			}
 
 		});
-		Image imgOpenQuestion = new ImageIcon(this.getClass().getResource("/play-arrow-back.png")).getImage();
+		Image imgOpenQuestion = new ImageIcon(this.getClass().getResource("/play-arrow-back2.png")).getImage();
 		lblQuestion2.setIcon(new ImageIcon(imgOpenQuestion));
-		lblQuestion2.setBounds(44, 200, 37, 72);
+		lblQuestion2.setBounds(42, 286, 37, 72);
 		getContentPane().add(lblQuestion2);
 
 		JLabel lblQuestion3 = new JLabel("");
@@ -128,7 +131,7 @@ public class OpenAnswer extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					setVisible(false);
+					OpenAnswer.this.dispose();
 				}
 			}
 
@@ -156,23 +159,24 @@ public class OpenAnswer extends JFrame {
 			}
 
 		});
-		Image imgOpenQuestion2 = new ImageIcon(this.getClass().getResource("/play-arrow-forward.png")).getImage();
+		Image imgOpenQuestion2 = new ImageIcon(this.getClass().getResource("/play-arrow-forward2.png")).getImage();
 		lblQuestion3.setIcon(new ImageIcon(imgOpenQuestion2));
-		lblQuestion3.setBounds(1028, 200, 37, 72);
+		lblQuestion3.setBounds(1026, 286, 37, 72);
 		getContentPane().add(lblQuestion3);
 
 		lblOpenQuestion = new JLabel("New label");
+		lblOpenQuestion.setForeground(Color.WHITE);
 		lblOpenQuestion.setText("<html> <body style=\"text-align: center\">" + OpenResult.openQuestionList.get(OpenResult.position).question + "</body> </html>");
-		lblOpenQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 23));
+		lblOpenQuestion.setFont(new Font("Lantinghei TC", Font.PLAIN, 31));
 		lblOpenQuestion.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOpenQuestion.setBounds(135, 26, 852, 92);
+		lblOpenQuestion.setBounds(123, 26, 852, 92);
 		contentPane.add(lblOpenQuestion);
 
 		JLabel lblNewLabel = new JLabel("total");
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setText("Total: " + OpenResult.openQuestionList.get(OpenResult.position).answer.length);
 		lblNewLabel.setFont(new Font("Bangla Sangam MN", Font.PLAIN, 22));
-		lblNewLabel.setBounds(23, 26, 101, 48);
+		lblNewLabel.setBounds(17, 50, 102, 48);
 		contentPane.add(lblNewLabel);
-
 	}
 }

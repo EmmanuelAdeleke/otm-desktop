@@ -57,7 +57,7 @@ public class Login extends JFrame {
 					Login frame = new Login();
 					frame.setVisible(true);
 					
-					frame.getContentPane().setBackground(new Color(21, 51, 99));
+//					frame.getContentPane().setBackground(new Color(21, 51, 99));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,6 +77,7 @@ public class Login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		getContentPane().setBackground(new Color(21, 51, 99));
 
 		txtUsername = new JTextField();
 		txtUsername.setBounds(158, 110, 134, 28);

@@ -88,7 +88,7 @@ public class Result extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
-				setVisible(false);
+				Result.this.dispose();
 
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);
@@ -140,6 +140,7 @@ public class Result extends JFrame {
 					e1.printStackTrace();
 				}
 				openResult.setVisible(true);
+				Result.this.dispose();
 				
 			}
 
@@ -187,7 +188,7 @@ public class Result extends JFrame {
 					e1.printStackTrace();
 				}
 				frame.setVisible(true);
-				setVisible(false);
+				Result.this.dispose();
 			}
 
 			@Override

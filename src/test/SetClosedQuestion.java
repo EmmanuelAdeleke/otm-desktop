@@ -97,7 +97,7 @@ public class SetClosedQuestion extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
-				setVisible(false);
+				SetClosedQuestion.this.dispose();
 
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);

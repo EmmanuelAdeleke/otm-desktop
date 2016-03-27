@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.rmi.UnknownHostException;
 
 import javax.swing.SwingConstants;
@@ -228,12 +229,23 @@ public class UserLogin extends JFrame {
 		getContentPane().add(lblReport);
 		
 		JLabel lblSettings = new JLabel("");
+		lblSettings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSettings.addMouseListener(new MouseListener() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("Settings");
+				
+				Report frame = null;
+				try {
+					frame = new Report();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				frame.setVisible(true);
+				UserLogin.this.dispose();
+				
+				System.out.println("Generate Report");
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -256,7 +268,7 @@ public class UserLogin extends JFrame {
 			}
 			
 		});
-		Image imgSettings = new ImageIcon(this.getClass().getResource("/settings.png")).getImage();
+		Image imgSettings = new ImageIcon(this.getClass().getResource("/report_icon.png")).getImage();
 		lblSettings.setIcon(new ImageIcon(imgSettings));
 		lblSettings.setBounds(172, 349, 117, 72);
 		getContentPane().add(lblSettings);
@@ -270,10 +282,10 @@ public class UserLogin extends JFrame {
 		JLabel lblSubmitQuestions = new JLabel("Submit Questions");
 		lblSubmitQuestions.setFont(new Font("Lantinghei TC", Font.PLAIN, 13));
 		lblSubmitQuestions.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSubmitQuestions.setBounds(172, 113, 117, 16);
+		lblSubmitQuestions.setBounds(172, 118, 117, 16);
 		getContentPane().add(lblSubmitQuestions);
 		
-		JLabel lblUserSettings = new JLabel("Settings");
+		JLabel lblUserSettings = new JLabel("Generate Report");
 		lblUserSettings.setFont(new Font("Lantinghei TC", Font.PLAIN, 13));
 		lblUserSettings.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUserSettings.setBounds(172, 328, 117, 16);
@@ -285,7 +297,7 @@ public class UserLogin extends JFrame {
 	public void exitPanel(){
 		Login login = new Login();
 		login.setVisible(true);
-		login.getContentPane().setBackground(new Color(63, 81, 181));
+//		login.getContentPane().setBackground(new Color(63, 81, 181));
 		this.dispose();
 	}
 }

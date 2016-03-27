@@ -34,10 +34,19 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
-public class MultipleResult extends JFrame {
+import javax.swing.SwingConstants;
+
+import org.jfree.ui.RefineryUtilities;
+
+public class Report extends JFrame {
 
 	public static int position;
 	public static List<questions.ClosedQuestion> closedQuestionList;
+	public static int correct;
+	public static int wrong;
+	public static int total;
+	Test stats;
+	PieChart_AWT pie;
 	
 	private JPanel contentPane;
 
@@ -48,7 +57,7 @@ public class MultipleResult extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MultipleResult frame = new MultipleResult();
+					Report frame = new Report();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +70,7 @@ public class MultipleResult extends JFrame {
 	 * Create the frame.
 	 * @throws IOException 
 	 */
-	public MultipleResult() throws IOException {
+	public Report() throws IOException {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - 300, 450, 400);
 		contentPane = new JPanel();
@@ -75,7 +84,7 @@ public class MultipleResult extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
-				setVisible(false);
+				Report.this.dispose();
 
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);
@@ -123,9 +132,10 @@ public class MultipleResult extends JFrame {
 //		contentPane.add(list);
 		contentPane.add(scrollPane);
 		
-		JLabel lblMultipleChoiceResults = new JLabel("Multiple Choice Topics");
+		JLabel lblMultipleChoiceResults = new JLabel("Generate Report");
+		lblMultipleChoiceResults.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMultipleChoiceResults.setFont(new Font("Lantinghei TC", Font.PLAIN, 20));
-		lblMultipleChoiceResults.setBounds(118, 41, 230, 29);
+		lblMultipleChoiceResults.setBounds(50, 41, 350, 29);
 		contentPane.add(lblMultipleChoiceResults);
 
 		list.addMouseListener(new MouseAdapter() {
@@ -137,10 +147,17 @@ public class MultipleResult extends JFrame {
 					int index = list.locationToIndex(evt.getPoint());
 					position = index;
 					
-					MultipleAnswer frame = new MultipleAnswer();
-					frame.setVisible(true);
+//					MultipleAnswer frame = new MultipleAnswer();
+//					frame.setVisible(true);
 					
-					MultipleResult.this.dispose();
+					stats = new Test();
+					
+					correct = stats.getCorrectness()[0];
+					wrong = stats.getCorrectness()[1];
+					total = stats.getCorrectness()[2];
+					
+					System.out.println(position + " " + closedQuestionList.get(position).questionList);
+					CopyOfPieChart_AWT.main(null);
 					
 					try {
 //						System.out.println(httpGet());
@@ -149,6 +166,8 @@ public class MultipleResult extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					Report.this.dispose();
+					
 				} else if (evt.getClickCount() == 3) {
 
 					// Triple-click detected

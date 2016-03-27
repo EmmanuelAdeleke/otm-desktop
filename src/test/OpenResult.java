@@ -79,7 +79,7 @@ public class OpenResult extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
-				setVisible(false);
+				OpenResult.this.dispose();
 
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);

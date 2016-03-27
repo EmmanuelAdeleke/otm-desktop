@@ -78,7 +78,7 @@ public class OpenQuestion extends JFrame {
 		user = new User();
 		db = new Database(SERVER_ADDRESS, DATABASE, COLLECTION);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - (450 / 2), 450, 450);
+		setBounds((int)(Login.width / 2) - (450 / 2), (int)(Login.height / 2) - (450 / 2), 450, 270);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,7 +90,7 @@ public class OpenQuestion extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
-				setVisible(false);
+				OpenQuestion.this.dispose();
 
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);
@@ -164,7 +164,7 @@ public class OpenQuestion extends JFrame {
 				txtQuestion.setText("");
 			}
 		});
-		btnSubmit.setBounds(167, 368, 117, 29);
+		btnSubmit.setBounds(163, 193, 117, 29);
 		contentPane.add(btnSubmit);
 		
 		this.setResizable(false);

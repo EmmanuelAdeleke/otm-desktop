@@ -94,10 +94,11 @@ public class ClosedQuestion extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Open Question");
-				setVisible(false);
 
 				UserLogin userLogin = new UserLogin();
 				userLogin.setVisible(true);
+				
+				ClosedQuestion.this.dispose();
 			}
 
 			@Override

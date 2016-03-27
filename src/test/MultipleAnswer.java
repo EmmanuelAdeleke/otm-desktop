@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class MultipleAnswer extends JFrame {
 
@@ -61,6 +62,7 @@ public class MultipleAnswer extends JFrame {
 		setBounds(100, 100, 1100, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(new Color(21, 51, 99));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -70,9 +72,10 @@ public class MultipleAnswer extends JFrame {
 		text = questionList.get(position).questionList.get(questionPosition).question;
 		
 		lblClosedQuestionHolder = new JLabel("<html> <body style=\"text-align: center\">" + text + "</body> </html>");
+		lblClosedQuestionHolder.setForeground(Color.WHITE);
 		lblClosedQuestionHolder.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClosedQuestionHolder.setFont(new Font("Lantinghei TC", Font.PLAIN, 25));
-		lblClosedQuestionHolder.setBounds(223, 24, 627, 130);
+		lblClosedQuestionHolder.setBounds(182, 24, 708, 130);
 		contentPane.add(lblClosedQuestionHolder);
 		
 		total = (int)(questionList.get(position).questionList.get(questionPosition).A + 
@@ -81,27 +84,31 @@ public class MultipleAnswer extends JFrame {
 				questionList.get(position).questionList.get(questionPosition).D);
 		
 		lblAnsA = new JLabel("AnswerA");
+		lblAnsA.setForeground(Color.WHITE);
 		lblAnsA.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnsA.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
-		lblAnsA.setBounds(260, 184, 590, 27);
+		lblAnsA.setBounds(260, 180, 590, 35);
 		contentPane.add(lblAnsA);
 		
 		lblAnsB = new JLabel("AnswerB");
+		lblAnsB.setForeground(Color.WHITE);
 		lblAnsB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnsB.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
-		lblAnsB.setBounds(260, 219, 590, 27);
+		lblAnsB.setBounds(260, 215, 590, 35);
 		contentPane.add(lblAnsB);
 		
 		lblAnsC = new JLabel("AnswerC");
+		lblAnsC.setForeground(Color.WHITE);
 		lblAnsC.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnsC.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
-		lblAnsC.setBounds(260, 254, 590, 27);
+		lblAnsC.setBounds(260, 249, 590, 37);
 		contentPane.add(lblAnsC);
 		
 		lblAnsD = new JLabel("AnswerD");
+		lblAnsD.setForeground(Color.WHITE);
 		lblAnsD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnsD.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
-		lblAnsD.setBounds(260, 289, 590, 27);
+		lblAnsD.setBounds(260, 285, 590, 35);
 		contentPane.add(lblAnsD);
 		
 		lblAnsA.setText(questionList.get(position).questionList.get(questionPosition).ansOption[0]);
@@ -110,11 +117,13 @@ public class MultipleAnswer extends JFrame {
 		lblAnsD.setText(questionList.get(position).questionList.get(questionPosition).ansOption[3]);
 		
 		lblTotal = new JLabel("Total: " + total);
-		lblTotal.setFont(new Font("Kannada Sangam MN", Font.BOLD, 23));
-		lblTotal.setBounds(44, 40, 111, 33);
+		lblTotal.setForeground(Color.WHITE);
+		lblTotal.setFont(new Font("Bangla Sangam MN", Font.PLAIN, 22));
+		lblTotal.setBounds(44, 77, 111, 33);
 		contentPane.add(lblTotal);
 		
 		lblAnswerA = new JLabel("0%");
+		lblAnswerA.setForeground(Color.WHITE);
 		lblAnswerA.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnswerA.setText(Math.round((questionList.get(position).questionList.get(questionPosition).A / total) * 100) + "%");
 		lblAnswerA.setFont(new Font("Lantinghei TC", Font.PLAIN, 49));
@@ -122,6 +131,7 @@ public class MultipleAnswer extends JFrame {
 		contentPane.add(lblAnswerA);
 		
 		lblAnswerB = new JLabel("0%");
+		lblAnswerB.setForeground(Color.WHITE);
 		lblAnswerB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnswerB.setText(Math.round((questionList.get(position).questionList.get(questionPosition).B / total) * 100) + "%");
 		lblAnswerB.setFont(new Font("Lantinghei TC", Font.PLAIN, 49));
@@ -129,6 +139,7 @@ public class MultipleAnswer extends JFrame {
 		contentPane.add(lblAnswerB);
 		
 		lblAnswerC = new JLabel("0%");
+		lblAnswerC.setForeground(Color.WHITE);
 		lblAnswerC.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnswerC.setText(Math.round((questionList.get(position).questionList.get(questionPosition).C / total) * 100) + "%");
 		lblAnswerC.setFont(new Font("Lantinghei TC", Font.PLAIN, 49));
@@ -136,6 +147,7 @@ public class MultipleAnswer extends JFrame {
 		contentPane.add(lblAnswerC);
 		
 		lblAnswerD = new JLabel("0%");
+		lblAnswerD.setForeground(Color.WHITE);
 		lblAnswerD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAnswerD.setText(Math.round((questionList.get(position).questionList.get(questionPosition).D / total) * 100) + "%");
 		lblAnswerD.setFont(new Font("Lantinghei TC", Font.PLAIN, 49));
@@ -209,9 +221,9 @@ public class MultipleAnswer extends JFrame {
 			}
 
 		});
-		Image imgOpenQuestion = new ImageIcon(this.getClass().getResource("/play-arrow-back.png")).getImage();
+		Image imgOpenQuestion = new ImageIcon(this.getClass().getResource("/play-arrow-back2.png")).getImage();
 		lblQuestion2.setIcon(new ImageIcon(imgOpenQuestion));
-		lblQuestion2.setBounds(44, 200, 37, 72);
+		lblQuestion2.setBounds(44, 219, 37, 72);
 		getContentPane().add(lblQuestion2);
 		
 		JLabel lblQuestion3 = new JLabel("");
@@ -282,51 +294,59 @@ public class MultipleAnswer extends JFrame {
 			}
 
 		});
-		Image imgOpenQuestion2 = new ImageIcon(this.getClass().getResource("/play-arrow-forward.png")).getImage();
+		Image imgOpenQuestion2 = new ImageIcon(this.getClass().getResource("/play-arrow-forward2.png")).getImage();
 		lblQuestion3.setIcon(new ImageIcon(imgOpenQuestion2));
-		lblQuestion3.setBounds(1028, 200, 37, 72);
+		lblQuestion3.setBounds(1028, 219, 37, 72);
 		getContentPane().add(lblQuestion3);
 		
 		JLabel lblA = new JLabel("A");
+		lblA.setForeground(Color.WHITE);
 		lblA.setHorizontalAlignment(SwingConstants.CENTER);
 		lblA.setFont(new Font("Lantinghei TC", Font.PLAIN, 36));
-		lblA.setBounds(110, 364, 125, 67);
+		lblA.setBounds(123, 364, 125, 67);
 		contentPane.add(lblA);
 		
 		JLabel lblB = new JLabel("B");
+		lblB.setForeground(Color.WHITE);
 		lblB.setHorizontalAlignment(SwingConstants.CENTER);
 		lblB.setFont(new Font("Lantinghei TC", Font.PLAIN, 36));
-		lblB.setBounds(339, 364, 125, 67);
+		lblB.setBounds(354, 364, 125, 67);
 		contentPane.add(lblB);
 		
 		JLabel lblC = new JLabel("C");
+		lblC.setForeground(Color.WHITE);
 		lblC.setHorizontalAlignment(SwingConstants.CENTER);
 		lblC.setFont(new Font("Lantinghei TC", Font.PLAIN, 36));
-		lblC.setBounds(585, 364, 125, 67);
+		lblC.setBounds(596, 364, 125, 67);
 		contentPane.add(lblC);
 		
 		JLabel lblD = new JLabel("D");
+		lblD.setForeground(Color.WHITE);
 		lblD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblD.setFont(new Font("Lantinghei TC", Font.PLAIN, 36));
-		lblD.setBounds(816, 364, 125, 67);
+		lblD.setBounds(824, 364, 125, 67);
 		contentPane.add(lblD);
 		
 		JLabel lblA_1 = new JLabel("A:");
+		lblA_1.setForeground(Color.WHITE);
 		lblA_1.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
 		lblA_1.setBounds(223, 184, 25, 27);
 		contentPane.add(lblA_1);
 		
 		JLabel lblB_1 = new JLabel("B:");
+		lblB_1.setForeground(Color.WHITE);
 		lblB_1.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
 		lblB_1.setBounds(223, 219, 25, 27);
 		contentPane.add(lblB_1);
 		
 		JLabel lblC_1 = new JLabel("C:");
+		lblC_1.setForeground(Color.WHITE);
 		lblC_1.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
 		lblC_1.setBounds(223, 254, 25, 27);
 		contentPane.add(lblC_1);
 		
 		JLabel lblD_1 = new JLabel("D:");
+		lblD_1.setForeground(Color.WHITE);
 		lblD_1.setFont(new Font("Sinhala Sangam MN", Font.PLAIN, 23));
 		lblD_1.setBounds(223, 289, 25, 27);
 		contentPane.add(lblD_1);
