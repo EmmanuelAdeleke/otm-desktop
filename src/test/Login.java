@@ -135,7 +135,7 @@ public class Login extends JFrame {
 		label.setIcon(new ImageIcon(img));
 		label.setBounds(168, 33, 117, 45);
 		contentPane.add(label);		
-
+		
 		this.setResizable(false);
 		
 	}

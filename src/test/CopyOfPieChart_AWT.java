@@ -83,10 +83,6 @@ public class CopyOfPieChart_AWT extends JFrame {
 	
 	private static PieDataset createDataset() {
 		DefaultPieDataset dataset = new DefaultPieDataset();
-//		dataset.setValue("IPhone 5s", new Double(200));
-//		dataset.setValue("SamSung Grand", new Double(20));
-//		dataset.setValue("MotoG", new Double(40));
-//		dataset.setValue("Nokia Lumia", new Double(10));
 		
 		int correct = getCorrectness()[0];
 		int wrong = getCorrectness()[1];
